@@ -39,3 +39,14 @@ nt.from_nx(workpiece_graph)
 nt.from_nx(feature_graph)
 nt.show("workpiece_graph.html", notebook=False)
 nt.show("feature_graph.html", notebook=False)
+# ##################################################
+# 3) Check if the feature graph is a subgraph of the workpiece workpiece and find any other matching subgraphs
+# ##################################################
+
+GM = nx.algorithms.isomorphism.GraphMatcher(workpiece_graph, feature_graph, node_match=None, edge_match=None)
+is_subgraph = GM.subgraph_is_monomorphic()
+# Print result
+if is_subgraph:
+    print("✅ The feature graph is a subgraph of the workpiece graph.")
+else:
+    print("❌ The feature graph is NOT a subgraph of the workpiece graph.")

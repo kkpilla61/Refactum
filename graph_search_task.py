@@ -50,3 +50,19 @@ if is_subgraph:
     print("✅ The feature graph is a subgraph of the workpiece graph.")
 else:
     print("❌ The feature graph is NOT a subgraph of the workpiece graph.")
+# ##################################################
+# 4) Results
+# ##################################################
+
+# Print results if matches are found. Return the number of matches and the node ids.
+
+# Find matching nodes (common nodes between both graphs)
+matched_nodes = list(set(workpiece_graph.nodes) & set(feature_graph.nodes))
+
+# Find matching edges (common edges between both graphs)
+matched_edges = list(set(workpiece_graph.edges) & set(feature_graph.edges))
+
+# Print results
+print(f"✅ Number of Matching Nodes: {len(matched_nodes)}")
+print(f"🔹 Matching Node IDs: {matched_nodes}")
+

@@ -4,7 +4,26 @@
 
 # Note: Available files are: workpiece_graph.json, feature_graph.json
 
-# TODO
+import json
+from pyvis.network import Network
+import networkx as nx
+# Function to load the graph
+def load_graph(json_file):
+    with open(json_file, 'r') as file:
+        data = json.load(file)
+
+    G = nx.Graph()
+
+    # Add nodes and edges
+    for node_id, attributes in data.get("nodes", []):
+        G.add_node(node_id, **attributes)
+        for neighbor in attributes["connected_faces"]:
+            G.add_edge(node_id, neighbor)
+
+    return G
+#Loading the graphs
+workpiece_graph = load_graph('workpiece_graph.json')
+feature_graph = load_graph('feature_graph.json')
 
 # ##################################################
 # 2) Create graphs from loaded data
@@ -13,26 +32,10 @@
 # Hint: The library networkx helps you to create a graph. You can use the nx.Graph() class to create a graph.
 # Note: Other appraoches are also possible.
 
-# TODO
-
 # Note: Optional task - Visualize the graph
 # Example code:
-# from pyvis.network import Network
-# nt = Network()
-# nt.from_nx(workpiece_graph)
-# nt.show("graph.html", notebook=False)
-
-# ##################################################
-# 3) Check if the feature graph is a subgraph of the workpiece workpiece and find any other matching subgraphs
-# ##################################################
-
-
-# TODO
-
-# ##################################################
-# 4) Results
-# ##################################################
-
-# Print results if matches are found. Return the number of matches and the node ids.
-
-# TODO
+nt = Network(height="750px", width="100%", bgcolor="#222222", font_color="white")
+nt.from_nx(workpiece_graph)
+nt.from_nx(feature_graph)
+nt.show("workpiece_graph.html", notebook=False)
+nt.show("feature_graph.html", notebook=False)
